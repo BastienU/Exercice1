@@ -1,0 +1,66 @@
+name: greeting
+
+on: 
+  push:
+    branches: ['main']
+    paths: ['.github/workflows/*']
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Code"
+        uses: actions/checkout@v3
+
+      - name: "Build Project"
+        run: |
+          echo "Building project..."
+          mkdir build
+          echo "Compiled project successfully!" > build/build.log
+
+      - name: "Upload Build Artifact"
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifact
+          path: build/
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: "Download Build Artifact"
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifact
+
+      - name: "Run Tests"
+        run: |
+          echo "Running tests on the build..."
+          echo "Tests passed successfully!"
+  
+  unit_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout Code"
+        uses: actions/checkout@v3
+
+      - name: "Set up Node.js"
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.18.0'
+
+      - name: "Install Dependencies"
+        run: npm install
+
+      - name: "Run Unit Tests"
+        run: npm test
+
+      - name: "Display Test Results"
+        run: |
+          echo "Test results:"
+          cat test-results.log  # Assuming the test results are logged in a file like test-results.log
