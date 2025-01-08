@@ -16,16 +16,8 @@ jobs:
     env:
       Greeting: Hello
     steps:
-      - name: "Hello World"
-        run: echo "Hello World"
-
-      - name: "Handle PR"
-        if: github.event_name == 'pull_request'
-        run: echo "Pull request event detected"
-
-      - name: "Handle Push"
-        if: github.event_name == 'push'
-        run: echo "Push event detected"
+      - name: "Checkout Code"
+        uses: actions/checkout@v3
 
       - name: "Install Dependencies"
         run: npm install
