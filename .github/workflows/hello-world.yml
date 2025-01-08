@@ -51,3 +51,12 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
         run: |
           echo "API Key is: $API_KEY"
+
+          - name: "Generate Report"
+          run: echo "Rapport d'analyse" > report.txt
+  
+      - name: "Upload Artifact: Report"
+        uses: actions/upload-artifact@v3
+        with:
+            name: report
+            path: report.txt
