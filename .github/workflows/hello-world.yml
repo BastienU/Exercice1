@@ -2,8 +2,8 @@ name: greeting
 
 on: 
   push:
-    branches: 'main'
-    paths: 'github/workflows/*'
+    branches: ['main']
+    paths: ['.github/workflows/*']
   pull_request:
     types:
       - opened
@@ -36,6 +36,4 @@ jobs:
       - name: "Run Script"
         run: |
           echo "Running script..."
-           echo "Script finished."- name: "Handle PR"
-        if: github.event_name == 'pull_request'
-        # run: echo "Pull request event detected"
+          echo "Script finished."
