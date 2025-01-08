@@ -1,6 +1,6 @@
-name: Greeting on variable day
+name: greeting
 
-on:
+on: 
   workflow_dispatch
 
 jobs:
