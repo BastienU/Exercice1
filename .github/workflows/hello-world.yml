@@ -47,16 +47,14 @@ jobs:
         run: echo "$MESSAGE"
 
       - name: "Use Secret API_KEY"
-        env:
-          API_KEY: ${{ secrets.API_KEY }}
         run: |
-          echo "API Key is: $API_KEY"
+          echo "API Key is: ${{ secrets.API_KEY }}"
 
-          - name: "Generate Report"
-          run: echo "Rapport d'analyse" > report.txt
-  
+      - name: "Generate Report"
+        run: echo "Rapport d'analyse" > report.txt
+
       - name: "Upload Artifact: Report"
         uses: actions/upload-artifact@v3
         with:
-            name: report
-            path: report.txt
+          name: report
+          path: report.txt
