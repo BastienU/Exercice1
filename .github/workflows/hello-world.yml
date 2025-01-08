@@ -19,46 +19,23 @@ jobs:
       - name: "Hello World"
         run: echo "Hello World"
 
-      name: greeting
-      
-      on:
-        push:
-          branches:
-            - main
-          paths:
-            - 'github/workflows/*'
-      
-        pull_request:
-          types:
-            - opened
-            - synchronize
-            - reopened
-      
-      jobs:
-        greeting_job:
-          runs-on: ubuntu-latest
-          steps:
-            - name: "Hello World"
-              run: echo "Hello World"
-      
-            - name: "Handle PR"
-              if: github.event_name == 'pull_request'
-              run: echo "Pull request event detected"
-      
-            - name: "Handle Push"
-              if: github.event_name == 'push'
-              run: echo "Push event detected"
-      
-            - name: "Install Dependencies"
-              run: npm install
-      
-            - name: "Lint Code"
-              run: npm run lint
-      
-            - name: "Run Script"
-              run: |
-                echo "Running script..."
-                # Add your script commands here
-                echo "Script finished."- name: "Handle PR"
+      - name: "Handle PR"
         if: github.event_name == 'pull_request'
         run: echo "Pull request event detected"
+
+      - name: "Handle Push"
+        if: github.event_name == 'push'
+        run: echo "Push event detected"
+
+      - name: "Install Dependencies"
+        run: npm install
+
+      - name: "Lint Code"
+        run: npm run lint
+
+      - name: "Run Script"
+        run: |
+          echo "Running script..."
+           echo "Script finished."- name: "Handle PR"
+        if: github.event_name == 'pull_request'
+        # run: echo "Pull request event detected"
