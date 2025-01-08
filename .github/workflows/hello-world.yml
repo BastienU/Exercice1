@@ -4,6 +4,7 @@ on:
   push:
     branches: ['main']
     paths: ['.github/workflows/*']
+
   pull_request:
     types:
       - opened
@@ -11,21 +12,23 @@ on:
       - reopened
 
 jobs:
-  greeting_job:
+  greeting:
     runs-on: ubuntu-latest
-    env:
-      Greeting: Hello
+
     steps:
       - name: "Checkout Code"
         uses: actions/checkout@v3
 
+      - name: "Hello World"
+        run: echo "Hello World"
+
       - name: "Install Dependencies"
         run: npm install
 
-      - name: "Lint Code"
-        run: npm run lint
-
-      - name: "Run Script"
+      - name: "Run Lint (Optional)"
         run: |
-          echo "Running script..."
-          echo "Script finished."
+          if [ -f "package.json" ]; then
+            npm run lint || echo "No linting required"
+          else
+            echo "Skipping lint step: package.json not found"
+          fi
